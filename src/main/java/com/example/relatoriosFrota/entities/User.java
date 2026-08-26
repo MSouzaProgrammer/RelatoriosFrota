@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario implements UserDetails{
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,16 +40,14 @@ public class Usuario implements UserDetails{
     @Column(nullable = false)
     private Access access;
     
-    public Usuario() {}
-    public Usuario(Long id, String name, String email, String password, Access access) {
+    public User() {}
+    public User(Long id, String name, String email, String password, Access access) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.access = access;
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

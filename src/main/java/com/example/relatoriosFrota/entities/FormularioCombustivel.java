@@ -26,6 +26,7 @@ public class FormularioCombustivel {
 
     @ManyToOne
     private Veiculo veiculo;
+
     private Despesa despesa;
     private LocalDate data;
     private Long novoKm;
@@ -33,6 +34,9 @@ public class FormularioCombustivel {
     private Long valorTotal;
     private Long quantLitro;
     private String observacao;
+
+    @ManyToOne
+    private User usuario;
 
     public FormularioCombustivel() {}
 

@@ -26,11 +26,15 @@ public class FormularioLavagem {
 
     @ManyToOne
     private Veiculo veiculo;
+
     private Despesa despesa;
     private LocalDate data;
     private Long novoKm;
     private Long valorlavagem;
     private String observacao;
+
+    @ManyToOne
+    private User usuario;
     
     public FormularioLavagem() {
     }

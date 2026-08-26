@@ -23,6 +23,7 @@ public class FormularioManutencao {
 
     @ManyToOne
     private Veiculo veiculo;
+
     private Despesa despesa;
     private LocalDate data;
     private ManutencaoTipos manutencaoTipos;
@@ -30,6 +31,9 @@ public class FormularioManutencao {
     private Long valorUnitario;
     private Long valorTotal;
     private String observacao;
+
+    @ManyToOne
+    private User usuario;
     
     public FormularioManutencao() {
     }
