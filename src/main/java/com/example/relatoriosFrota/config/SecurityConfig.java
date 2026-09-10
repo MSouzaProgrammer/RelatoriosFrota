@@ -90,7 +90,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Value("${app.frontend.url:http://127.0.0.1:5500}")
+    @Value("${app.frontend.url:http://localhost:5173}")
     private String frontendUrl;
 
     @Bean
