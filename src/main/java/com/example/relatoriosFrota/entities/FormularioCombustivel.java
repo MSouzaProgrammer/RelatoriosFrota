@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormularioCombustivel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,20 +28,35 @@ public class FormularioCombustivel {
     private Veiculo veiculo;
 
     private Despesa despesa;
+
     private LocalDate data;
+
     private Long novoKm;
+
     private Long valorUnitario;
+
     private Long valorTotal;
+
     private Long quantLitro;
+
     private String observacao;
 
-    @ManyToOne
-    private User usuario;
+    private String usuario;
 
-    public FormularioCombustivel() {}
+    public FormularioCombustivel() {
+    }
 
-    public FormularioCombustivel(Long id, Veiculo veiculo, Despesa despesa, LocalDate data, Long novoKm,
-            Long valorUnitario, Long valorTotal, Long quantLitro, String observacao) {
+    public FormularioCombustivel(
+            Long id,
+            Veiculo veiculo,
+            Despesa despesa,
+            LocalDate data,
+            Long novoKm,
+            Long valorUnitario,
+            Long valorTotal,
+            Long quantLitro,
+            String observacao
+    ) {
         this.id = id;
         this.veiculo = veiculo;
         this.despesa = despesa;
@@ -52,5 +67,4 @@ public class FormularioCombustivel {
         this.quantLitro = quantLitro;
         this.observacao = observacao;
     }
-
 }

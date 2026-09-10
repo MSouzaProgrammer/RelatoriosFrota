@@ -28,19 +28,29 @@ public class FormularioLavagem {
     private Veiculo veiculo;
 
     private Despesa despesa;
+
     private LocalDate data;
+
     private Long novoKm;
+
     private Long valorlavagem;
+
     private String observacao;
 
-    @ManyToOne
-    private User usuario;
-    
+    private String usuario;
+
     public FormularioLavagem() {
     }
 
-    public FormularioLavagem(Long id, Veiculo veiculo, Despesa despesa, LocalDate data, Long novoKm, Long valorlavagem,
-            String observacao) {
+    public FormularioLavagem(
+            Long id,
+            Veiculo veiculo,
+            Despesa despesa,
+            LocalDate data,
+            Long novoKm,
+            Long valorlavagem,
+            String observacao
+    ) {
         this.id = id;
         this.veiculo = veiculo;
         this.despesa = despesa;
@@ -49,5 +59,4 @@ public class FormularioLavagem {
         this.valorlavagem = valorlavagem;
         this.observacao = observacao;
     }
-   
 }

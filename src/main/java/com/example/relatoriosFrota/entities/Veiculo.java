@@ -1,7 +1,5 @@
 package com.example.relatoriosFrota.entities;
 
-import java.util.List;
-
 import com.example.relatoriosFrota.enuns.Marca;
 import com.example.relatoriosFrota.enuns.ModelosVeiculos;
 
@@ -26,16 +24,17 @@ public class Veiculo {
     private ModelosVeiculos modelosVeiculos;
     private Marca marca;
     private Long ano;
-    private Long Km;
+    private Long km;
     
     public Veiculo() {
     }
 
-    public Veiculo(Long id, String placa, ModelosVeiculos modelosVeiculos, Marca marca, Long ano) {
+    public Veiculo(Long id, String placa, ModelosVeiculos modelosVeiculos, Marca marca, Long ano, Long km) {
         this.id = id;
         this.placa = placa;
         this.modelosVeiculos = modelosVeiculos;
         this.marca = marca;
         this.ano = ano;
+        this.km = km;
     }
 }

@@ -16,7 +16,7 @@ public class KeepAliveService {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://pedidos-filiais-ivrnet.onrender.com/auth/login")) // uma rota sua
+                    .uri(URI.create("http://localhost:8080/")) // uma rota sua
                     .GET()
                     .build();
             

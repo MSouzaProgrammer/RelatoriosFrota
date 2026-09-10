@@ -10,6 +10,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+
 import com.example.relatoriosFrota.dto.JWTUserData;
 import com.example.relatoriosFrota.entities.User;
 
@@ -20,10 +21,12 @@ public class TokenConfig {
     private String secret;
 
     public String generateToken(User user) {
+
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         return JWT.create()
-                .withClaim("UserId", user.getId()) // Mantido "UserId" com U maiúsculo
+                .withClaim("UserId", user.getId())
+                .withClaim("name", user.getName())
                 .withSubject(user.getEmail())
                 .withExpiresAt(Instant.now().plusSeconds(86400))
                 .withIssuedAt(Instant.now())
@@ -31,19 +34,25 @@ public class TokenConfig {
     }
 
     public Optional<JWTUserData> validateToken(String token) {
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            DecodedJWT decode = JWT.require(algorithm).build().verify(token);
 
-            // Trocado o .builder() pelo construtor padrão do Record
-            // Corrigido de "userId" para "UserId" para bater com o generateToken
+        try {
+
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+
+            DecodedJWT decode = JWT.require(algorithm)
+                    .build()
+                    .verify(token);
+
             JWTUserData userData = new JWTUserData(
                     decode.getClaim("UserId").asLong(),
-                    decode.getSubject());
+                    decode.getSubject(),
+                    decode.getClaim("name").asString()
+            );
 
             return Optional.of(userData);
 
         } catch (JWTVerificationException ex) {
+
             return Optional.empty();
         }
     }
