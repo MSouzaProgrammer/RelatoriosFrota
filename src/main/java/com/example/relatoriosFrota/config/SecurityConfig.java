@@ -2,10 +2,10 @@ package com.example.relatoriosFrota.config;
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -36,14 +37,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-
-                // Desabilita CSRF para API REST
                 .csrf(csrf -> csrf.disable())
 
-                // Habilita CORS
                 .cors(Customizer.withDefaults())
 
-                // API sem sessão
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
@@ -52,23 +49,23 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
 
-                        // Permite erros
                         .dispatcherTypeMatchers(
                                 DispatcherType.ERROR
                         ).permitAll()
 
-                        // Permite OPTIONS
                         .requestMatchers(
                                 HttpMethod.OPTIONS,
                                 "/**"
                         ).permitAll()
 
-                        // DURANTE O DESENVOLVIMENTO:
-                        // TODAS AS ROTAS ESTÃO LIBERADAS
+                        .requestMatchers(
+                                "/auth/login",
+                                "/auth/register"
+                        ).permitAll()
+
                         .anyRequest().permitAll()
                 )
 
-                // Mantém seu filtro JWT ativo
                 .addFilterBefore(
                         securityFilter,
                         UsernamePasswordAuthenticationFilter.class
@@ -90,17 +87,18 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Value("${app.frontend.url:http://localhost:5173}")
-    private String frontendUrl;
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration = new CorsConfiguration();
+        CorsConfiguration configuration =
+                new CorsConfiguration();
 
-        // Frontend permitido
         configuration.setAllowedOrigins(
-                Arrays.asList(frontendUrl)
+                Arrays.asList(
+                        "http://localhost:5173",
+                        "http://127.0.0.1:5173",
+                        "http://192.168.30.16:5173"
+                )
         );
 
         configuration.setAllowedMethods(
