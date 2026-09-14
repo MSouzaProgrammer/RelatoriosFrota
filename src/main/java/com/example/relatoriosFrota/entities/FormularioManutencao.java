@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +28,9 @@ public class FormularioManutencao {
 
     @ManyToOne
     private Veiculo veiculo;
+
+    @ManyToOne
+    private Motorista motorista;
 
     private Despesa despesa;
 
@@ -53,6 +55,7 @@ public class FormularioManutencao {
             Long id,
             String nomeDaManutencao,
             Veiculo veiculo,
+            Motorista motorista,
             Despesa despesa,
             LocalDate data,
             ManutencaoTipos manutencaoTipos,
@@ -64,6 +67,7 @@ public class FormularioManutencao {
         this.id = id;
         this.nomeDaManutencao = nomeDaManutencao;
         this.veiculo = veiculo;
+        this.motorista = motorista;
         this.despesa = despesa;
         this.data = data;
         this.manutencaoTipos = manutencaoTipos;
