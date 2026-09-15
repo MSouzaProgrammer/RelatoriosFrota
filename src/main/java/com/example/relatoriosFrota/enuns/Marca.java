@@ -4,5 +4,6 @@ public enum Marca {
     FORD,
     CHEVROLET,
     TOYOTA,
-    VOLKSWAGEN
+    VOLKSWAGEN,
+    FIAT
 }
