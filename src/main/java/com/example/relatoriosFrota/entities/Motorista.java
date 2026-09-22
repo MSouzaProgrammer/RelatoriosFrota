@@ -16,16 +16,16 @@ public class Motorista {
 
     private String nome;
 
-    private Long cpf;
+    private String cpf;
 
-    private Long cnh;
+    private String cnh;
 
     private Boolean ativo;
 
     public Motorista() {
     }
 
-    public Motorista(Long id, String nome, Long cpf, Long cnh, Boolean ativo) {
+    public Motorista(Long id, String nome, String cpf, String cnh, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
