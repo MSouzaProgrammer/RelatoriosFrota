@@ -8,7 +8,6 @@ public record FormularioLavagemRequest(
         Long veiculoId,
         Despesa despesa,
         LocalDate data,
-        Long novoKm,
         Long valorlavagem,
         String observacao
 ) {

@@ -16,61 +16,53 @@ import com.example.relatoriosFrota.repository.VeiculoRepository;
 @Service
 public class FormularioLavagemService {
 
-    private final LavagemRepository lavagemRepository;
-    private final VeiculoRepository veiculoRepository;
+  private final LavagemRepository lavagemRepository;
+  private final VeiculoRepository veiculoRepository;
 
-    public FormularioLavagemService(
-            LavagemRepository lavagemRepository,
-            VeiculoRepository veiculoRepository
-    ) {
-        this.lavagemRepository = lavagemRepository;
-        this.veiculoRepository = veiculoRepository;
+  public FormularioLavagemService(
+      LavagemRepository lavagemRepository,
+      VeiculoRepository veiculoRepository) {
+    this.lavagemRepository = lavagemRepository;
+    this.veiculoRepository = veiculoRepository;
+  }
+
+  public FormularioLavagem salvar(
+      FormularioLavagemRequest request) {
+
+    Veiculo veiculo = veiculoRepository.findById(request.veiculoId())
+        .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+
+    FormularioLavagem lavagem = new FormularioLavagem();
+
+    lavagem.setVeiculo(veiculo);
+    lavagem.setDespesa(request.despesa());
+    lavagem.setData(request.data());
+    lavagem.setValorlavagem(request.valorlavagem());
+    lavagem.setObservacao(request.observacao());
+
+    Authentication authentication = SecurityContextHolder
+        .getContext()
+        .getAuthentication();
+
+    if (authentication != null
+        && authentication.getPrincipal() instanceof JWTUserData userData) {
+
+      lavagem.setUsuario(userData.name());
     }
 
-    public FormularioLavagem salvar(
-            FormularioLavagemRequest request
-    ) {
+    return lavagemRepository.save(lavagem);
+  }
 
-        Veiculo veiculo = veiculoRepository.findById(request.veiculoId())
-                .orElseThrow(() ->
-                        new RuntimeException("Veículo não encontrado")
-                );
+  public List<FormularioLavagem> listarTodos() {
+    return lavagemRepository.findAll();
+  }
 
-        FormularioLavagem lavagem = new FormularioLavagem();
+  public FormularioLavagem buscarPorId(Long id) {
+    return lavagemRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Lavagem não encontrada"));
+  }
 
-        lavagem.setVeiculo(veiculo);
-        lavagem.setDespesa(request.despesa());
-        lavagem.setData(request.data());
-        lavagem.setNovoKm(request.novoKm());
-        lavagem.setValorlavagem(request.valorlavagem());
-        lavagem.setObservacao(request.observacao());
-
-        Authentication authentication =
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication();
-
-        if (authentication != null
-                && authentication.getPrincipal() instanceof JWTUserData userData) {
-
-            lavagem.setUsuario(userData.name());
-        }
-
-        return lavagemRepository.save(lavagem);
-    }
-
-    public List<FormularioLavagem> listarTodos() {
-        return lavagemRepository.findAll();
-    }
-
-    public FormularioLavagem buscarPorId(Long id) {
-        return lavagemRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Lavagem não encontrada")
-                );
-    }
-
-    public void deletar(Long id) {
-        lavagemRepository.deleteById(id);
-    }
+  public void deletar(Long id) {
+    lavagemRepository.deleteById(id);
+  }
 }

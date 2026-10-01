@@ -1,0 +1,46 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: frota-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    container_name: frota-api
+    restart: unless-stopped
+    
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      CAMINHO_BANCO: ${CAMINHO_BANCO}
+      USERNAME_PG: ${USERNAME_PG}
+      PASSWORD_PG: ${PASSWORD_PG}
+    ports:
+      - "8080"
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:alpine
+    container_name: frota-nginx
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

@@ -6,5 +6,6 @@ public enum ModelosVeiculos {
     RANGER,
     S10,
     HILUX,
-    GOL
+    GOL,
+    MOBI
 }

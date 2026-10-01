@@ -31,8 +31,6 @@ public class FormularioLavagem {
 
     private LocalDate data;
 
-    private Long novoKm;
-
     private Long valorlavagem;
 
     private String observacao;
@@ -47,7 +45,6 @@ public class FormularioLavagem {
             Veiculo veiculo,
             Despesa despesa,
             LocalDate data,
-            Long novoKm,
             Long valorlavagem,
             String observacao
     ) {
@@ -55,7 +52,6 @@ public class FormularioLavagem {
         this.veiculo = veiculo;
         this.despesa = despesa;
         this.data = data;
-        this.novoKm = novoKm;
         this.valorlavagem = valorlavagem;
         this.observacao = observacao;
     }
