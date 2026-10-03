@@ -54,7 +54,7 @@ public class FormularioLavagemService {
   }
 
   public List<FormularioLavagem> listarTodos() {
-    return lavagemRepository.findAll();
+    return lavagemRepository.findAllByOrderByDataDesc();
   }
 
   public FormularioLavagem buscarPorId(Long id) {

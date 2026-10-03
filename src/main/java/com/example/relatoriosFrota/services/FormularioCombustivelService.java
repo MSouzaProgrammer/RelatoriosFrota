@@ -131,7 +131,7 @@ public class FormularioCombustivelService {
     }
 
     public List<FormularioCombustivel> listarTodos() {
-        return formularioCombustivelRepository.findAll();
+        return formularioCombustivelRepository.findAllByOrderByDataDesc();
     }
 
     public FormularioCombustivel buscarPorId(Long id) {

@@ -161,7 +161,7 @@ public class FormularioManutencaoService {
     }
 
     public List<FormularioManutencao> listarTodos() {
-        return manutencaoRepository.findAll();
+        return manutencaoRepository.findAllByOrderByDataDesc();
     }
 
     public FormularioManutencao buscarPorId(Long id) {
